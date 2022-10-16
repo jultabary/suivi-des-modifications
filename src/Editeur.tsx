@@ -1,9 +1,9 @@
-import { cp } from "fs/promises";
 import { SyntheticEvent } from "react";
 import { useLayoutEffect, useRef } from "react";
+import { Article } from "./Article";
 
 interface EditeurProps {
-    texteAEdité: string[]
+    texteAEdité: Article[]
     notifierDeLaMiseAJour: (ligne: string, texte: string) => void
 }
 
@@ -12,13 +12,13 @@ interface CustomEvent extends SyntheticEvent {
   }
 
 function Editeur(props: EditeurProps) {
-    
+    const texteAEdité = props.texteAEdité
 
     useLayoutEffect(() => {
-        const ligne1 = document.getElementById("article_1_1") as  HTMLElement
-        ligne1.innerHTML = `<span>${props.texteAEdité[0]}</span>`
-        const ligne2 = document.getElementById("article_1_2") as HTMLElement
-        ligne2.innerHTML = `<span>${props.texteAEdité[1]}</span>`
+        for (const ligne of texteAEdité) {
+            const ligneHTMLElement = document.getElementById(ligne.id) as  HTMLElement
+            ligneHTMLElement.innerHTML = `<span>${ligne.texteInital}</span>`
+        }
     })
 
     const retourneLaLigneModifiée = (elementNode: HTMLElement): HTMLElement => {
@@ -114,8 +114,15 @@ function Editeur(props: EditeurProps) {
 
     return (
         <article contentEditable="true" onBeforeInput={onBeforeInputHandle}>
-            <p className="ligne" id="article_1_1" ></p>
-            <p className="ligne" id="article_1_2" ></p>
+            {(
+                () => {
+                    let lignes = []
+                    for (let i = 0; i < texteAEdité.length; i++) {
+                        lignes.push(<p className="ligne" key={props.texteAEdité[i].id} id={props.texteAEdité[i].id} ></p>)
+                    }
+                    return lignes
+                }
+            )()}
         </article>
     );
 }
