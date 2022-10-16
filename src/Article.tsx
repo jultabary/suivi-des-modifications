@@ -1,4 +1,4 @@
 export interface Article {
     id: string,
-    texteInital: string
+    lignes: {id: string, texteInitial: string}[]
 }

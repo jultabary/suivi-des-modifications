@@ -2,8 +2,10 @@ import './App.css';
 import Editeur from './Editeur';
 
 function App() {
-  const article = [{id: 'article1_1', texteInital: 'Une première ligne à éditer'},
-                       {id: 'article1_2', texteInital: 'Une seconde ligne à éditer'}];
+  const article = {
+    id: 'unarticle',
+    lignes: [{id: 'article1_1', texteInitial: 'Une première ligne à éditer'}, {id: 'article1_2', texteInitial: 'Une seconde ligne à éditer'}]
+  };
   const miseAJour = (ligne: string, texteMisAJour: string) => {
     console.log(`Texte mis à jour: ${ligne} ${texteMisAJour}`)
   };
