@@ -27,8 +27,9 @@ function Editeur(props: EditeurProps) {
     })
 
     const onKeyDownHandle = (event: CustomEvent) => {
-        if (event.key && (event.key.length === 1 || event.code === 'Space')) {
-            const ligneModifiée = service.insertionDeTexte(event.key)
+        let curseur = window.getSelection() as Selection 
+        if (event.key && (event.key.length === 1 || event.code === 'Space') && curseur.focusNode) {
+            const ligneModifiée = service.insertionDeTexte(event.key, curseur.focusNode as HTMLElement, curseur.focusOffset)
             event.preventDefault()
             props.notifierDeLaMiseAJour(ligneModifiée.id, ligneModifiée.texteMisAjour)
         }

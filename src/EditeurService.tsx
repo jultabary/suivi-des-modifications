@@ -5,19 +5,14 @@ export interface LigneMiseAJour {
 
 export class EditeurService {
     
-    insertionDeTexte(caractèreAInsérer: string): LigneMiseAJour {
-        let curseur = window.getSelection() as Selection 
-        const ligne = this.retourneLaLigneModifiée(curseur.focusNode as HTMLElement)    
-        let currentOffset = curseur.focusOffset;
-        let currentNode = (curseur.focusNode as HTMLElement)
+    insertionDeTexte(caractèreAInsérer: string, currentNode: HTMLElement, currentOffset: number): LigneMiseAJour {
+        const ligne = this.retourneLaLigneModifiée(currentNode)
         currentNode = (currentNode.parentElement?.tagName !== 'P' ? currentNode.parentElement : currentNode) as HTMLElement
         let currentNodeIndex = Array.prototype.indexOf.call(ligne.childNodes, currentNode)
 
         let nextOffset: number; 
         let nextCurrentNodeIndex: number;
         let parentContainerCurseur: Node;
-        const insChild = document.createElement("del");
-        insChild.textContent = caractèreAInsérer
 
         if (this.lOffsetEstEnPremièrePositionDeSonElement(currentOffset) && !this.estDansUnIns(currentNode)) {
             const oldCurrentSpanValue = currentNode.innerHTML;

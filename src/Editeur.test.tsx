@@ -28,7 +28,7 @@ describe('Ajout de modification au texte inital', () => {
 
         // Then
         expect(modification.length).not.toBe(0)
-        expect(modification[modification.length - 1]).toBe({id: 'alinea_1', texteMisAjour: 'Une deuxième ligne.<ins>Insertion</ins>'})
+        expect(modification[modification.length - 1]).toStrictEqual({ligne: 'alinea_1', texte: 'Une première ligne.<ins>Insertion</ins>'})
     });    
 })
   
